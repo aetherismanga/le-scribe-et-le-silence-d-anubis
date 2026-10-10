@@ -1,10 +1,10 @@
-const CACHE_NAME = 'le-scribe-tome2-v8-anubis-icon';
+const CACHE_NAME = 'le-scribe-tome2-v9-custom-art';
 const CORE = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './icon.svg',
-  './Screenshot_20261010_134717_Gallery.jpg'
+  './Logo application .png',
+  './Page de couverture .png'
 ];
 
 self.addEventListener('install', event => {
