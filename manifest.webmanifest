@@ -14,10 +14,16 @@
   "theme_color": "#07111c",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "./Logo application .png",
       "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./Logo application .png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "id": "/tome-ii"
