@@ -3,9 +3,7 @@ const CORE = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './images/icon-192.png',
-  './images/icon-512.png',
-  './images/icon-maskable-512.png',
+  './icon.svg',
   './Screenshot_20261010_134717_Gallery.jpg'
 ];
 
