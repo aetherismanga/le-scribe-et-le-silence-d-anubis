@@ -5,19 +5,19 @@
   "lang": "fr-FR",
   "start_url": "./",
   "scope": "./",
-  "display": "fullscreen",
+  "display": "standalone",
   "display_override": [
-    "fullscreen",
     "standalone"
   ],
   "orientation": "portrait",
-  "background_color": "#efe4c8",
-  "theme_color": "#2b241c",
+  "background_color": "#07111c",
+  "theme_color": "#07111c",
   "icons": [
     {
       "src": "icon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ],
   "id": "/tome-ii"
