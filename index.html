@@ -553,6 +553,7 @@ body.immersive-fallback #fsPrevEdge{display:flex}
 .topbar .icon-btn.ui-approved:hover img,.topbar .icon-btn.ui-approved:focus-visible img{transform:translateY(-1px);filter:brightness(1.12) drop-shadow(0 0 7px rgba(240,183,63,.35))}
 .topbar .icon-btn.ui-approved:active img{transform:scale(.97)}
 @media(max-width:720px){.topbar .icon-btn.ui-approved{min-height:0!important;padding:0!important}.topbar .icon-btn.ui-approved img{width:clamp(62px,18.2vw,105px);max-height:58px}.topbar .actions{gap:2px!important}}
+ .share-book-btn{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:9px 15px;cursor:pointer;white-space:nowrap;min-width:0} .share-book-btn:active{transform:scale(.97)}
 </style>
 </head>
 <body class="theme-ivory">
@@ -580,7 +581,7 @@ body.immersive-fallback #fsPrevEdge{display:flex}
     <div id="pageJumpModal" class="notify-modal" aria-hidden="true"><div class="notify-card" style="max-width:360px"><div class="notify-head"><h2>Aller à la page</h2><button type="button" id="pageJumpClose" class="close-btn">×</button></div><div style="padding:18px"><input id="pageJumpRange" type="range" min="1" max="1" value="1" style="width:100%"><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px"><label for="pageJumpInput">Page</label><input id="pageJumpInput" type="number" min="1" max="1" value="1" inputmode="numeric" style="width:90px;padding:10px;border:1px solid var(--border);border-radius:9px;font:inherit;text-align:center"><span id="pageJumpTotal"></span></div><button type="button" class="primary" id="pageJumpGo" style="width:100%;margin-top:18px">Aller à cette page</button></div></div></div>
 <nav class="nav" aria-label="Navigation de lecture">
       <button type="button" id="prevBtn">← Précédent</button>
-      <span id="pageCounter" aria-live="polite"></span>
+      <button type="button" id="shareBookBtn" class="share-book-btn" aria-label="Partager le roman" title="Partager le roman">↗ Partager</button>
       <button type="button" id="nextBtn" class="next">Suivant →</button>
     </nav>
     <div class="progress-wrap">
@@ -684,7 +685,7 @@ body.immersive-fallback #fsPrevEdge{display:flex}
   const STORAGE={anchor:'scribe-tome2-reader-anchor-v5',theme:'scribe-tome2-reader-theme-v1',size:'scribe-tome2-reader-size-v1',line:'scribe-tome2-reader-line-v1',completed:'scribe-tome2-reader-completed-v1',voice:'scribe-tome2-reader-voice-v1',voiceGender:'scribe-tome2-reader-voice-gender-v1',speechRate:'scribe-tome2-reader-speech-rate-v1',musicEnabled:'scribe-tome2-music-enabled-v1',musicVolume:'scribe-tome2-music-volume-v1',musicTime:'scribe-tome2-music-time-v1'};
   const $=id=>document.getElementById(id);
   const pageEl=$('page'), prevBtn=$('prevBtn'), nextBtn=$('nextBtn');
-  const pageCounter=$('pageCounter'), progressBar=$('progressBar'), chapterLabel=$('chapterLabel'), percentLabel=$('percentLabel'), toast=$('toast');
+  const pageCounter=null, progressBar=$('progressBar'), chapterLabel=$('chapterLabel'), percentLabel=$('percentLabel'), toast=$('toast');
   let current=0,textPages=1,totalPages=3,chapterPageIndices=[],pageSections=[],layoutReady=false;
   let touchStartX=null,touchStartY=null,immersiveFallback=false,resizeTimer=null,reflowTimer=null;
   let savedAnchor=localStorage.getItem(STORAGE.anchor)||'';
@@ -818,7 +819,7 @@ body.immersive-fallback #fsPrevEdge{display:flex}
       const f=flow();f.scrollLeft=(current-1)*columnWidth();
     }
     prevBtn.disabled=current===0;nextBtn.disabled=current===totalPages-1;
-    pageCounter.textContent=current===0?'Couverture':(current===textPages+1?'Illustration de fin':(current===totalPages-1?'Mot du Grognard':'Page '+(current+1)+' / '+totalPages));
+    
     const pct=totalPages>1?Math.round((current/(totalPages-1))*100):0;progressBar.style.width=pct+'%';percentLabel.textContent=pct+' %';
     const sec=currentSection();chapterLabel.textContent=sec>=0?RAW.sections[sec].label+' — '+RAW.sections[sec].title:(current===0?'Couverture':(current===textPages+1?'Illustration de fin':'Mot du Grognard'));
     highlightChapter();
@@ -1044,6 +1045,9 @@ body.immersive-fallback #fsPrevEdge{display:flex}
     }).catch(()=>{});
   }
 })();
+</script>
+<script>
+(function(){const btn=document.getElementById('shareBookBtn');if(!btn)return;btn.addEventListener('click',async()=>{const data={title:'Le Scribe et le Silence d’Anubis — Tome II',text:'Découvre le roman interactif Le Scribe et le Silence d’Anubis — Tome II.',url:'https://le-scribe-et-le-silence-d-anubis.vercel.app/'};try{if(navigator.share){await navigator.share(data);return;}if(navigator.clipboard){await navigator.clipboard.writeText(data.url);btn.textContent='✓ Lien copié';setTimeout(()=>btn.textContent='↗ Partager',2200);return;}window.prompt('Copier le lien du roman',data.url);}catch(e){if(e.name!=='AbortError')window.prompt('Copier le lien du roman',data.url);}});})();
 </script>
 </body>
 </html>
