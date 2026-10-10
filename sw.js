@@ -1,4 +1,4 @@
-const CACHE_NAME = 'le-scribe-tome2-v7-tome1-icon';
+const CACHE_NAME = 'le-scribe-tome2-v8-anubis-icon';
 const CORE = [
   './',
   './index.html',
