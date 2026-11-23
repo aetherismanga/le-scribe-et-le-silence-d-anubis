@@ -787,11 +787,12 @@ body.immersive-fallback #fsPrevEdge{display:flex}
     // a visible white/first-column flash during Android fullscreen viewport changes.
     const visibleLeft=f.scrollLeft;
     requestAnimationFrame(()=>{
+      if(!f.isConnected || flow()!==f || flowContent()!==c)return;
       textPages=Math.max(1,Math.ceil((c.scrollWidth-1)/w)); totalPages=textPages+3;
       chapterPageIndices=[];pageSections=[];
       const fr=f.getBoundingClientRect();
       RAW.sections.forEach((_,si)=>{
-        const chapter=$('chapter-'+si),el=chapter&&(chapter.querySelector('.chapter-illustration')||chapter); const er=el.getBoundingClientRect();
+        const chapter=$('chapter-'+si),el=chapter&&(chapter.querySelector('.chapter-illustration')||chapter); if(!el)return; const er=el.getBoundingClientRect();
         const absLeft=(er.left-fr.left)+visibleLeft;
         const p=1+Math.max(0,Math.floor((absLeft+2)/w));
         chapterPageIndices[si]=Math.min(textPages,p);

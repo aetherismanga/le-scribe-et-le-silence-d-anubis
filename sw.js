@@ -1,4 +1,4 @@
-const CACHE_NAME = 'le-scribe-tome2-v10-lecture';
+const CACHE_NAME = 'le-scribe-tome2-v11-lecture';
 const CORE = [
   './',
   './index.html',
